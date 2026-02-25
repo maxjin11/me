@@ -82,6 +82,16 @@ export default function Nav() {
               </a>
             </li>
           ))}
+          <li>
+            <a 
+                href="https://drive.google.com/file/d/1ly4f65LUu3BIhi11e74QtSW1288oAJjv/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-sm font-light tracking-widest text-black hover:text-ember transition-colors"
+            >
+                Resume
+            </a>
+          </li>
         </ul>
 
         {/* Mobile toggle */}
