@@ -1,20 +1,22 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
+const cyclingWords = ['learning', 'working', 'building', 'contributing']
 
 const experiences = [
   {
     company: 'Miovision Technologies',
     role: 'Data Science Intern',
     period: 'Sep. 2025 - Dec. 2025',
-    description: `Maintained data pipelines with 400M+ records using Python and SQL.\n
-                Reduced data load times by 60% in ELT workflows built with Snowflake.`,
+    description: `Maintained data pipelines with 400M+ records using Python and SQL.
+                Reduced data load times by 65% in ELT workflows built with Snowflake.`,
     tags: ['Snowflake', 'ELT Workflows', 'Data Pipelines', 'AWS', 'SQL', 'PowerShell'],
   },
   {
     company: 'Greenhouse',
     role: 'Data Analyst Intern',
     period: 'Jan. 2025 - Apr. 2025',
-    description: `Improved accuracy of order delivery details to 95%+.
+    description: `Improved accuracy of order delivery details to 97%.
                 Cut machinery downtime by 50% using monitoring automations built using Azure.`,
     tags: ['Javascript', 'Azure', 'RESTful APIs', 'SQL', 'Power BI', 'Power Query', 'Power Automate'],
   },
@@ -29,7 +31,7 @@ const experiences = [
     company: 'University of Waterloo',
     role: 'AI and Cloud Project Assistant',
     period: 'May 2024 - Aug. 2024',
-    description: `Completed all deliverables 15% ahead of schedule, using Jira to manage tasks.`,
+    description: `Completed all deliverables 15% ahead of schedule while using Jira to manage tasks.`,
     tags: ['Azure', 'Jira', 'Project Management'],
   },
 ]
@@ -45,7 +47,20 @@ const education = [
 ]
 
 export default function Experience() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLElement>(null);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [wordVisible, setWordVisible] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+        setWordVisible(false)
+        setTimeout(() => {
+            setWordIndex(i => (i + 1) % cyclingWords.length)
+            setWordVisible(true)
+        }, 400)
+    }, 3500)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,7 +78,15 @@ export default function Experience() {
       <div className="max-w-6xl mx-auto">
         <div className="reveal mb-15">
           <p className="font-body text-xs tracking-[0.22em] uppercase text-black font-light mb-4">Experience</p>
-          <h2 className="font-display text-4xl font-light text-black">Where I've Made Impact</h2>
+          <h2 className="font-display text-4xl font-light text-black">
+            Where I've been {' '}
+            <span
+                className="text-black transition-opacity duration-300"
+                style={{ opacity: wordVisible ? 1 : 0 }}
+            >
+                {cyclingWords[wordIndex]}
+            </span> 
+          </h2> {/*Experiences that built me... Projects I built into experience*/}
         </div>
 
         {/* Work experience */}
