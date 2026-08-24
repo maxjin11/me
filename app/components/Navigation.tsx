@@ -48,12 +48,13 @@ export default function Nav() {
   }
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      scrolled ? 'bg-cream/90 backdrop-blur-md shadow-sm' : 'bg-transparent'
+    <nav className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-500 ${
+      scrolled ? 'bg-paper/85 backdrop-blur-md border-line' : 'bg-transparent border-transparent'
     }`}>
-      <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div className="w-full px-6">
+      <div className="max-w-6xl mx-auto py-5 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" onClick = {(e) => scrollTo(e, "#")} className="relative font-display text-2xl font-light text-black tracking-tight hover:text-ember transition-colors">
+        <a href="#" onClick = {(e) => scrollTo(e, "#")} className="relative font-display text-2xl font-medium text-ink tracking-tight hover:text-accent transition-colors">
           <div className="relative inline-flex items-baseline">
             <span className={`block transition-all duration-500 ${
                 introPast ? 'opacity-100' : 'opacity-0'
@@ -76,18 +77,18 @@ export default function Nav() {
               <a
                 href={l.href}
                 onClick={(e) => scrollTo(e, l.href)}
-                className="font-body text-sm font-light tracking-widest text-black hover:text-ember transition-colors"
+                className="font-mono text-xs uppercase tracking-[0.15em] text-muted hover:text-accent transition-colors"
               >
                 {l.label}
               </a>
             </li>
           ))}
           <li>
-            <a 
+            <a
                 href="https://maxjin11.github.io/my-resume/Max%20Jin%20Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-body text-sm font-light tracking-widest text-black hover:text-ember transition-colors"
+                className="font-mono text-xs uppercase tracking-[0.15em] text-accent border border-accent/40 rounded-sm px-3.5 py-2 hover:bg-accent hover:text-paper transition-colors"
             >
                 Resume
             </a>
@@ -100,25 +101,34 @@ export default function Nav() {
           className="md:hidden flex flex-col gap-1.5 p-2"
           aria-label="Toggle menu"
         >
-          <span className={`block w-6 h-px bg-espresso transition-transform duration-300 ${menuOpen ? 'translate-y-2.5 rotate-45' : ''}`} />
-          <span className={`block w-6 h-px bg-espresso transition-opacity duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block w-6 h-px bg-espresso transition-transform duration-300 ${menuOpen ? '-translate-y-2 -rotate-45' : ''}`} />
+          <span className={`block w-6 h-px bg-ink transition-transform duration-300 ${menuOpen ? 'translate-y-2.5 rotate-45' : ''}`} />
+          <span className={`block w-6 h-px bg-ink transition-opacity duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+          <span className={`block w-6 h-px bg-ink transition-transform duration-300 ${menuOpen ? '-translate-y-2 -rotate-45' : ''}`} />
         </button>
+      </div>
       </div>
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-cream/95 backdrop-blur-md border-t border-sand px-6 py-6 flex flex-col gap-5">
+        <div className="md:hidden bg-paper/95 backdrop-blur-md border-t border-line px-6 py-6 flex flex-col gap-5">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              onClick={() => setMenuOpen(false)}
-              className="font-body text-sm font-light tracking-widest text-black hover:text-ember transition-colors"
+              onClick={(e) => scrollTo(e, l.href)}
+              className="font-mono text-xs uppercase tracking-[0.15em] text-muted hover:text-accent transition-colors"
             >
               {l.label}
             </a>
           ))}
+          <a
+            href="https://maxjin11.github.io/my-resume/Max%20Jin%20Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-xs uppercase tracking-[0.15em] text-accent hover:text-accent-soft transition-colors"
+          >
+            Resume
+          </a>
         </div>
       )}
     </nav>

@@ -3,11 +3,21 @@ import { useEffect, useRef, useState } from 'react'
 
 const cyclingWords = ['learning', 'working', 'building', 'contributing']
 
+// Highlight quantitative impact (400M+, 65%, 100x, 1000+) in emerald monospace.
+const METRIC = /(?<![A-Za-z])(\d[\d.,]*(?:M|K|B)?\+?(?:%|x)?)/
+function withMetrics(text: string) {
+  return text.split(METRIC).map((part, i) =>
+    part && METRIC.test(part)
+      ? <span key={i} className="font-mono font-medium text-accent">{part}</span>
+      : <span key={i}>{part}</span>
+  )
+}
+
 const experiences = [
   {
     company: 'AssistIQ',
     role: 'Software Engineering Intern',
-    period: 'Sep. 2026 - Dec. 2026',
+    period: 'Sep. 2026 — Dec. 2026',
     description: [
       'Building REST APIs, web/iOS features, and CV pipelines to track material usage and optimize billing efficiency in healthcare systems',
     ],
@@ -16,7 +26,7 @@ const experiences = [
   {
     company: 'Miovision Technologies',
     role: 'Data Science Intern',
-    period: 'Sep. 2025 - Dec. 2025',
+    period: 'Sep. 2025 — Dec. 2025',
     description: [
       'Architected large-scale ELT pipelines using Snowflake to process 400M+ records across 30+ regions, reducing data load times by 65%',
       'Engineered PowerShell scripts to automate ingestion of raw JSON files from AWS S3',
@@ -28,7 +38,7 @@ const experiences = [
   {
     company: 'Greenhouse',
     role: 'Data Analyst Intern',
-    period: 'Jan. 2025 - Apr. 2025',
+    period: 'Jan. 2025 — Apr. 2025',
     description: [
       'Resolved a silent failure in a legacy JavaScript service affecting 20% of Shopify sales, eliminating 40+ hours/week of manual corrections',
       'Developed a Python/OpenCV pipeline to detect product containers that bypassed the sanitation step, storing flagged events in Azure Blob Storage and syncing results to Excel for review',
@@ -39,7 +49,7 @@ const experiences = [
   {
     company: 'Beyond Sciences Initiative',
     role: 'Data Analyst',
-    period: 'May 2024 - Dec. 2024',
+    period: 'May 2024 — Dec. 2024',
     description: [
       'Utilized Python and Pandas to clean CSV files with 1000+ conference registrant entries',
       'Analyzed results in Excel to identify efficient marketing allocation between varying demographics',
@@ -49,7 +59,7 @@ const experiences = [
   {
     company: 'University of Waterloo',
     role: 'AI and Cloud Project Assistant',
-    period: 'May 2024 - Aug. 2024',
+    period: 'May 2024 — Aug. 2024',
     description: [
       'Coordinated Jira-based sprint planning, delivering project milestones 15% ahead of schedule',
     ],
@@ -97,19 +107,19 @@ export default function Experience() {
   }, [])
 
   return (
-    <section id="experience" ref={sectionRef} className="py-28 px-6">
+    <section id="experience" ref={sectionRef} className="py-28 px-6 bg-paper">
       <div className="max-w-6xl mx-auto">
-        <div className="reveal mb-15">
-          <p className="font-body text-xs tracking-[0.22em] uppercase text-black font-light mb-4">Experience</p>
-          <h2 className="font-display text-4xl font-light text-black">
-            Where I've been {' '}
+        <div className="reveal mb-16">
+          <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">Experience</p>
+          <h2 className="font-display text-4xl md:text-5xl font-medium tracking-tight text-ink">
+            Where I&apos;ve been{' '}
             <span
-                className="text-black transition-opacity duration-300"
+                className="text-accent transition-opacity duration-300"
                 style={{ opacity: wordVisible ? 1 : 0 }}
             >
                 {cyclingWords[wordIndex]}
-            </span> 
-          </h2> {/*Experiences that built me... Projects I built into experience*/}
+            </span>
+          </h2>
         </div>
 
         {/* Work experience */}
@@ -117,23 +127,23 @@ export default function Experience() {
           {experiences.map((exp, i) => (
             <div
               key={i}
-              className="reveal group border-t border-sand last:border-b py-10 grid md:grid-cols-[200px_1fr] gap-6 md:gap-12 hover:bg-cream/50 transition-colors px-2 -mx-2 rounded-sm"
+              className="reveal group border-t border-line last:border-b py-10 grid md:grid-cols-[210px_1fr] gap-4 md:gap-12 hover:bg-panel/60 transition-colors px-3 -mx-3 rounded-sm"
               style={{ transitionDelay: `${i * 0.08}s` }}
             >
-              <div className="space-y-1">
-                <p className="font-body font-light text-xs tracking-widest text-black">{exp.period}</p>
-                <p className="font-display text-lg font-light text-black">{exp.company}</p>
+              <div className="space-y-1.5">
+                <p className="font-mono text-xs tracking-wider text-muted">{exp.period}</p>
+                <p className="font-display text-lg font-medium text-ink">{exp.company}</p>
               </div>
-              <div className="space-y-3">
-                <h3 className="font-display text-2xl text-black">{exp.role}</h3>
-                <ul className="font-body text-sm text-[#433a3f] list-disc list-outside pl-5 space-y-1 marker:text-ember">
+              <div className="space-y-4">
+                <h3 className="font-display text-xl font-medium text-ink">{exp.role}</h3>
+                <ul className="font-body text-[0.875rem] text-muted list-disc list-outside pl-5 space-y-1.5 marker:text-accent/50">
                   {exp.description.map((point, j) => (
-                    <li key={j} className="leading-relaxed">{point}</li>
+                    <li key={j} className="leading-relaxed">{withMetrics(point)}</li>
                   ))}
                 </ul>
                 <div className="flex flex-wrap gap-2 pt-1">
                   {exp.tags.map(tag => (
-                    <span key={tag} className="tag text-[#433a3f] border-stone/50 text-[0.65rem]">{tag}</span>
+                    <span key={tag} className="tag">{tag}</span>
                   ))}
                 </div>
               </div>
@@ -142,19 +152,19 @@ export default function Experience() {
         </div>
 
         {/* Education */}
-        <div className="reveal mt-15">
-          <p className="font-body text-xs tracking-[0.22em] uppercase text-black font-medium mb-8">Education</p>
+        <div className="reveal mt-20">
+          <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-8">Education</p>
           {education.map((edu, i) => (
-            <div key={i} className="border-t border-sand py-8 grid md:grid-cols-[200px_1fr] gap-6 md:gap-12">
-              <div>
-                <p className="font-body text-xs tracking-widest uppercase text-black">{edu.period}</p>
-                <p className="font-display text-lg font-light text-black mt-1">{edu.institution}</p>
+            <div key={i} className="border-t border-line last:border-b py-10 grid md:grid-cols-[210px_1fr] gap-4 md:gap-12">
+              <div className="space-y-1.5">
+                <p className="font-mono text-xs tracking-wider text-muted">{edu.period}</p>
+                <p className="font-display text-lg font-medium text-ink">{edu.institution}</p>
               </div>
 
-              <div className="space-y-3">
-                <h3 className="font-display text-2xl text-black">{edu.degree}</h3>
+              <div className="space-y-4">
+                <h3 className="font-display text-xl font-medium text-ink">{edu.degree}</h3>
                 {edu.note && (
-                  <ul className="font-body text-sm text-[#433a3f] list-disc list-outside pl-5 space-y-1 mt-2 marker:text-ember">
+                  <ul className="font-body text-[0.875rem] text-muted list-disc list-outside pl-5 space-y-1.5 marker:text-accent/50">
                     {edu.note.map((point, j) => (
                       <li key={j} className="leading-relaxed">{point}</li>
                     ))}
@@ -162,7 +172,7 @@ export default function Experience() {
                 )}
                 <div className="flex flex-wrap gap-2 pt-1">
                     {edu.tags.map(tag => (
-                    <span key={tag} className="tag text-[#433a3f] border-stone/50 text-[0.65rem]">{tag}</span>
+                    <span key={tag} className="tag">{tag}</span>
                     ))}
                 </div>
               </div>
