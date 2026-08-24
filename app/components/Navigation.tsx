@@ -84,7 +84,7 @@ export default function Nav() {
           ))}
           <li>
             <a 
-                href="https://maxjin11.github.io/my-resume/Max_Jin_Resume.pdf"
+                href="https://maxjin11.github.io/my-resume/Max%20Jin%20Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-body text-sm font-light tracking-widest text-black hover:text-ember transition-colors"

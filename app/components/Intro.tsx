@@ -17,7 +17,8 @@ export default function Intro() {
       <div className="absolute top-24 right-[30vw] w-4 h-4 rounded-full bg-ember opacity-40" />
       <div className="absolute bottom-1/3 right-16 w-2 h-2 rounded-full bg-umber opacity-60" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-16 w-full grid md:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 w-full px-6 pt-28 pb-16">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
         {/* Text */}
         <div className="space-y-8">
           <p
@@ -33,13 +34,16 @@ export default function Intro() {
             className="font-body text-base text-[#433a3f] max-w-lg leading-relaxed opacity-0"
             style={anim('fadeUp', '0.7s', '0.4s')}
           >
-            I'm a third year mathematics student at the University of Waterloo.
+            I'm a third year Math and Statistics student at the University of Waterloo.
             <br />
             <br />
-            Currently majoring in Statistics.
+            Super interested in full stack and data!
             <br />
             <br />
-            I mainly specialize in data roles, but I love building software too!
+            Currently searching for Winter/Summer 2027 SWE internships.
+            <br />
+            <br />
+            Side note, I love sports! I usually play badminton and basketball, but trying new sports is also always fun.
           </p>
           <div
             className="flex items-center gap-4 opacity-0"
@@ -99,6 +103,7 @@ export default function Intro() {
             {/* Small accent square */}
             <div className="absolute -top-3 -left-3 w-12 h-12 bg-parchment border border-sand" />
           </div>
+        </div>
         </div>
       </div>
 
